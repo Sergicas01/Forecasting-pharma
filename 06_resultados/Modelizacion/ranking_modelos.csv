@@ -1,0 +1,33 @@
+target,algoritmo,parametros,mape_mean,mape_std,rmse_mean,mae_mean
+m01ab,LinearRegression,{},0.27588759297529614,0.0801760555474738,14.20883419004394,9.184745305761373
+m01ab,RandomForestRegressor,"{'n_estimators': 100, 'min_samples_split': 5, 'min_samples_leaf': 1, 'max_depth': 3}",0.2074744420576613,0.04590715981116741,9.160328437237842,7.443720121308291
+m01ab,HistGradientBoostingRegressor,"{'min_samples_leaf': 10, 'max_iter': 50, 'max_depth': 8, 'learning_rate': 0.01}",0.20110589890001546,0.04219802090138104,9.348281902917146,7.4547266483266075
+m01ab,XGBRegressor,"{'subsample': 0.7, 'n_estimators': 50, 'max_depth': 5, 'learning_rate': 0.01, 'colsample_bytree': 0.7}",0.1937333506550055,0.03873863503825518,9.138144282081695,7.228584283787067
+m01ae,LinearRegression,{},0.3986205145660326,0.31600014423158174,30.63148398639724,10.511018449326361
+m01ae,RandomForestRegressor,"{'n_estimators': 200, 'min_samples_split': 10, 'min_samples_leaf': 1, 'max_depth': 8}",0.19979080948012976,0.02858135755894585,6.916408906047485,5.370901206004819
+m01ae,HistGradientBoostingRegressor,"{'min_samples_leaf': 5, 'max_iter': 50, 'max_depth': 8, 'learning_rate': 0.01}",0.20053540498545078,0.04091046222676984,7.0843961804571025,5.4411996959728235
+m01ae,XGBRegressor,"{'subsample': 0.7, 'n_estimators': 50, 'max_depth': 5, 'learning_rate': 0.01, 'colsample_bytree': 0.7}",0.19944566017355506,0.04183391211755668,7.132433758115321,5.454444180919027
+n02ba,LinearRegression,{},0.4607214042487328,0.3663658250700405,30.86788388688335,11.181983905850483
+n02ba,RandomForestRegressor,"{'n_estimators': 200, 'min_samples_split': 2, 'min_samples_leaf': 2, 'max_depth': 3}",0.24761437255605342,0.1053003828301449,6.875287350199815,5.419979379025042
+n02ba,HistGradientBoostingRegressor,"{'min_samples_leaf': 20, 'max_iter': 50, 'max_depth': 8, 'learning_rate': 0.05}",0.24797269777683956,0.11052257448305287,6.73305190200958,5.383542182891317
+n02ba,XGBRegressor,"{'subsample': 1.0, 'n_estimators': 50, 'max_depth': 3, 'learning_rate': 0.1, 'colsample_bytree': 0.8}",0.24884658228923323,0.09354570372450513,6.943846397409689,5.4210720776532195
+n02be,LinearRegression,{},0.2554499478626884,0.17448426916319457,180.69691522532315,61.94466961268787
+n02be,RandomForestRegressor,"{'n_estimators': 100, 'min_samples_split': 10, 'min_samples_leaf': 4, 'max_depth': 8}",0.15429194566737425,0.01281682380221284,46.574260567769485,33.42078763413851
+n02be,HistGradientBoostingRegressor,"{'min_samples_leaf': 10, 'max_iter': 50, 'max_depth': 5, 'learning_rate': 0.1}",0.16446713880399286,0.027089084494953897,48.69036869436024,35.444703505189445
+n02be,XGBRegressor,"{'subsample': 1.0, 'n_estimators': 50, 'max_depth': 3, 'learning_rate': 0.1, 'colsample_bytree': 0.8}",0.16404001433085968,0.029163534018104332,47.51224318883057,35.29453297322591
+n05b,LinearRegression,{},0.6740568311178532,0.6751854817087973,99.89194055345867,38.12190511768366
+n05b,RandomForestRegressor,"{'n_estimators': 50, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_depth': 3}",0.3121362498460587,0.11686085672739621,19.97459636062313,15.468575049856849
+n05b,HistGradientBoostingRegressor,"{'min_samples_leaf': 20, 'max_iter': 50, 'max_depth': 8, 'learning_rate': 0.05}",0.36031539454786765,0.15206083409759086,22.130800848869686,17.64477703860275
+n05b,XGBRegressor,"{'subsample': 1.0, 'n_estimators': 50, 'max_depth': 3, 'learning_rate': 0.05, 'colsample_bytree': 0.8}",0.32843163605779474,0.12884875208458912,20.684712599474878,16.403757055866414
+n05c,LinearRegression,{},2.015294560207514,2.281912419765698,17.144089101682255,6.8291777212171425
+n05c,RandomForestRegressor,"{'n_estimators': 50, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_depth': 3}",0.7309518376604243,0.33869699140050513,3.4822052313878245,2.677674821087348
+n05c,HistGradientBoostingRegressor,"{'min_samples_leaf': 10, 'max_iter': 50, 'max_depth': 8, 'learning_rate': 0.01}",0.7287565821381508,0.27510495007159785,3.284297032099482,2.5830310940045176
+n05c,XGBRegressor,"{'subsample': 0.8, 'n_estimators': 50, 'max_depth': 5, 'learning_rate': 0.01, 'colsample_bytree': 1.0}",0.7343873286236697,0.28923690898862553,3.3218562541706396,2.6045615865110707
+r03,LinearRegression,{},0.7645109107953914,0.3901214818842844,68.70511914354634,25.840908333116403
+r03,RandomForestRegressor,"{'n_estimators': 100, 'min_samples_split': 10, 'min_samples_leaf': 4, 'max_depth': 8}",0.4740707561363887,0.08394922252699451,20.790251660784733,15.666934135475085
+r03,HistGradientBoostingRegressor,"{'min_samples_leaf': 10, 'max_iter': 50, 'max_depth': None, 'learning_rate': 0.1}",0.46352035546686976,0.09682967636706,21.611182733530228,16.320447859984135
+r03,XGBRegressor,"{'subsample': 1.0, 'n_estimators': 50, 'max_depth': 3, 'learning_rate': 0.1, 'colsample_bytree': 0.8}",0.46082767570766653,0.0872300398455572,21.155327229828753,16.047977504451428
+r06,LinearRegression,{},0.7063488866535726,0.7246871765375074,31.08445538375927,10.983265016860836
+r06,RandomForestRegressor,"{'n_estimators': 50, 'min_samples_split': 2, 'min_samples_leaf': 4, 'max_depth': 5}",0.28520394744902733,0.07030685317253128,7.120494997882936,5.2825614984136635
+r06,HistGradientBoostingRegressor,"{'min_samples_leaf': 10, 'max_iter': 50, 'max_depth': None, 'learning_rate': 0.1}",0.3009167477353496,0.06741326270550839,7.483548553395323,5.661362846983757
+r06,XGBRegressor,"{'subsample': 1.0, 'n_estimators': 50, 'max_depth': 3, 'learning_rate': 0.05, 'colsample_bytree': 0.8}",0.2923396454507185,0.06058697082474645,7.41206391515033,5.491007741886435

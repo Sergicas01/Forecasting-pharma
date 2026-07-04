@@ -1,0 +1,353 @@
+{
+  "version": "1.0",
+  "generado_por": "A_08_Limpieza",
+  "timestamp": "2026-07-04 10:15:00",
+  "notebook_hash": "PENDIENTE_CALCULO_EXTERNO",
+  "fuente_datos": {
+    "archivo": "02_datos/01_Originales/salesweekly.csv",
+    "columnas_raw_necesarias": [
+      "datum",
+      "M01AB",
+      "M01AE",
+      "N02BA",
+      "N02BE",
+      "N05B",
+      "N05C",
+      "R03",
+      "R06"
+    ]
+  },
+  "features_finalistas": [
+    {
+      "nombre": "year",
+      "tipo": "int64",
+      "origen": "datum",
+      "requiere_fit": false
+    },
+    {
+      "nombre": "month",
+      "tipo": "int64",
+      "origen": "datum",
+      "requiere_fit": false
+    },
+    {
+      "nombre": "day",
+      "tipo": "int64",
+      "origen": "datum",
+      "requiere_fit": false
+    },
+    {
+      "nombre": "weekofyear",
+      "tipo": "int64",
+      "origen": "datum",
+      "requiere_fit": false
+    },
+    {
+      "nombre": "[target]_lag_1",
+      "tipo": "float64",
+      "origen": "[target]",
+      "requiere_fit": false
+    },
+    {
+      "nombre": "[target]_lag_2",
+      "tipo": "float64",
+      "origen": "[target]",
+      "requiere_fit": false
+    },
+    {
+      "nombre": "[target]_roll_mean_4",
+      "tipo": "float64",
+      "origen": "[target]_lag_1",
+      "requiere_fit": false
+    }
+  ],
+  "variable_objetivo": {
+    "nombre": [
+      "m01ab",
+      "m01ae",
+      "n02ba",
+      "n02be",
+      "n05b",
+      "n05c",
+      "r03",
+      "r06"
+    ],
+    "tipo": "float64"
+  },
+  "mejor_configuracion_por_target": {
+    "m01ab": {
+      "algoritmo": "HistGradientBoostingRegressor",
+      "parametros": {
+        "min_samples_leaf": 10,
+        "max_iter": 50,
+        "max_depth": 8,
+        "learning_rate": 0.01
+      },
+      "metricas_cv": {
+        "mape_mean": 0.20110589890001546,
+        "mape_std": 0.04219802090138104,
+        "rmse_mean": 9.348281902917146,
+        "mae_mean": 7.4547266483266075
+      }
+    },
+    "m01ae": {
+      "algoritmo": "RandomForestRegressor",
+      "parametros": {
+        "n_estimators": 200,
+        "min_samples_split": 10,
+        "min_samples_leaf": 1,
+        "max_depth": 8
+      },
+      "metricas_cv": {
+        "mape_mean": 0.19979080948012976,
+        "mape_std": 0.02858135755894585,
+        "rmse_mean": 6.916408906047485,
+        "mae_mean": 5.370901206004819
+      }
+    },
+    "n02ba": {
+      "algoritmo": "RandomForestRegressor",
+      "parametros": {
+        "n_estimators": 200,
+        "min_samples_split": 2,
+        "min_samples_leaf": 2,
+        "max_depth": 3
+      },
+      "metricas_cv": {
+        "mape_mean": 0.24761437255605342,
+        "mape_std": 0.1053003828301449,
+        "rmse_mean": 6.875287350199815,
+        "mae_mean": 5.419979379025042
+      }
+    },
+    "n02be": {
+      "algoritmo": "RandomForestRegressor",
+      "parametros": {
+        "n_estimators": 100,
+        "min_samples_split": 10,
+        "min_samples_leaf": 4,
+        "max_depth": 8
+      },
+      "metricas_cv": {
+        "mape_mean": 0.15429194566737425,
+        "mape_std": 0.01281682380221284,
+        "rmse_mean": 46.574260567769485,
+        "mae_mean": 33.42078763413851
+      }
+    },
+    "n05b": {
+      "algoritmo": "RandomForestRegressor",
+      "parametros": {
+        "n_estimators": 50,
+        "min_samples_split": 2,
+        "min_samples_leaf": 1,
+        "max_depth": 3
+      },
+      "metricas_cv": {
+        "mape_mean": 0.3121362498460587,
+        "mape_std": 0.11686085672739621,
+        "rmse_mean": 19.97459636062313,
+        "mae_mean": 15.468575049856849
+      }
+    },
+    "n05c": {
+      "algoritmo": "HistGradientBoostingRegressor",
+      "parametros": {
+        "min_samples_leaf": 10,
+        "max_iter": 50,
+        "max_depth": 8,
+        "learning_rate": 0.01
+      },
+      "metricas_cv": {
+        "mape_mean": 0.7287565821381508,
+        "mape_std": 0.27510495007159785,
+        "rmse_mean": 3.284297032099482,
+        "mae_mean": 2.5830310940045176
+      }
+    },
+    "r03": {
+      "algoritmo": "HistGradientBoostingRegressor",
+      "parametros": {
+        "min_samples_leaf": 10,
+        "max_iter": 50,
+        "max_depth": null,
+        "learning_rate": 0.1
+      },
+      "metricas_cv": {
+        "mape_mean": 0.46352035546686976,
+        "mape_std": 0.09682967636706,
+        "rmse_mean": 21.611182733530228,
+        "mae_mean": 16.320447859984135
+      }
+    },
+    "r06": {
+      "algoritmo": "RandomForestRegressor",
+      "parametros": {
+        "n_estimators": 50,
+        "min_samples_split": 2,
+        "min_samples_leaf": 4,
+        "max_depth": 5
+      },
+      "metricas_cv": {
+        "mape_mean": 0.28520394744902733,
+        "mape_std": 0.07030685317253128,
+        "rmse_mean": 7.120494997882936,
+        "mae_mean": 5.2825614984136635
+      }
+    }
+  },
+  "dag_transformaciones": {
+    "orden_ejecucion": [
+      "P01",
+      "P02",
+      "P02_date",
+      "P03",
+      "P04",
+      "P05",
+      "P06"
+    ],
+    "pasos": [
+      {
+        "paso_id": "P01",
+        "descripcion": "Lectura de salesweekly.csv",
+        "inputs": [],
+        "outputs": [
+          "datum",
+          "M01AB",
+          "M01AE",
+          "N02BA",
+          "N02BE",
+          "N05B",
+          "N05C",
+          "R03",
+          "R06"
+        ],
+        "depende_de": [],
+        "tipo_sklearn": "none",
+        "requiere_fit": false
+      },
+      {
+        "paso_id": "P02",
+        "descripcion": "Normalización de columnas a lowercase snake_case",
+        "inputs": [
+          "datum",
+          "M01AB",
+          "M01AE",
+          "N02BA",
+          "N02BE",
+          "N05B",
+          "N05C",
+          "R03",
+          "R06"
+        ],
+        "outputs": [
+          "datum",
+          "m01ab",
+          "m01ae",
+          "n02ba",
+          "n02be",
+          "n05b",
+          "n05c",
+          "r03",
+          "r06"
+        ],
+        "depende_de": [
+          "P01"
+        ],
+        "tipo_sklearn": "none",
+        "requiere_fit": false
+      },
+      {
+        "paso_id": "P02_date",
+        "descripcion": "Conversión de datum a datetime y ordenación cronológica",
+        "inputs": [
+          "datum"
+        ],
+        "outputs": [
+          "date"
+        ],
+        "depende_de": [
+          "P02"
+        ],
+        "tipo_sklearn": "none",
+        "requiere_fit": false
+      },
+      {
+        "paso_id": "P03",
+        "descripcion": "División temporal del dataset (Train/Val)",
+        "inputs": [
+          "date"
+        ],
+        "outputs": [
+          "train_subset"
+        ],
+        "depende_de": [
+          "P02_date"
+        ],
+        "tipo_sklearn": "none",
+        "requiere_fit": false
+      },
+      {
+        "paso_id": "P04",
+        "descripcion": "Extracción de características del calendario (year, month, day, weekofyear)",
+        "inputs": [
+          "date"
+        ],
+        "outputs": [
+          "year",
+          "month",
+          "day",
+          "weekofyear"
+        ],
+        "depende_de": [
+          "P03"
+        ],
+        "tipo_sklearn": "none",
+        "requiere_fit": false
+      },
+      {
+        "paso_id": "P05",
+        "descripcion": "Cálculo de lags (t-1, t-2) y medias móviles (roll_4)",
+        "inputs": [
+          "m01ab",
+          "m01ae",
+          "n02ba",
+          "n02be",
+          "n05b",
+          "n05c",
+          "r03",
+          "r06"
+        ],
+        "outputs": [
+          "*_lag_1",
+          "*_lag_2",
+          "*_roll_mean_4"
+        ],
+        "depende_de": [
+          "P03"
+        ],
+        "tipo_sklearn": "none",
+        "requiere_fit": false
+      },
+      {
+        "paso_id": "P06",
+        "descripcion": "Eliminación de las primeras 4 filas de entrenamiento con nulos",
+        "inputs": [
+          "*_lag_1",
+          "*_lag_2",
+          "*_roll_mean_4"
+        ],
+        "outputs": [
+          "X_train",
+          "y_train"
+        ],
+        "depende_de": [
+          "P04",
+          "P05"
+        ],
+        "tipo_sklearn": "none",
+        "requiere_fit": false
+      }
+    ]
+  }
+}
