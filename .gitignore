@@ -13,6 +13,7 @@ env/
 
 # Data and binaries (Exclude data files but keep folders via .gitkeep)
 02_datos/**/*.csv
+!02_datos/01_Originales/salesweekly.csv
 02_datos/**/*.pkl
 opt/
 
