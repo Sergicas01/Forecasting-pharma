@@ -14,7 +14,6 @@ env/
 # Data and binaries (Exclude data files but keep folders via .gitkeep)
 02_datos/**/*.csv
 02_datos/**/*.pkl
-06_despliegue/artefacto_pipeline.pkl
 opt/
 
 # OS specific files
