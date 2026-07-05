@@ -8,50 +8,116 @@ import streamlit as st
 
 # Configuración de página
 st.set_page_config(
-    page_title="Pharma Sales Forecast",
+    page_title="Optimización de la Gestión de Inventario",
     layout="wide",
     page_icon="💊",
     initial_sidebar_state="expanded"
 )
 
-# Estilos CSS premium para UI moderna
+# Estilos CSS premium para UI moderna y corporativa (no genérica)
 st.markdown("""
 <style>
-    .main-title {
-        font-size: 2.2rem;
+    /* Importación de tipografía corporativa */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
+    /* Aplicar tipografía a toda la app */
+    html, body, [class*="css"], .stMarkdown {
+        font-family: 'Inter', sans-serif !important;
+    }
+    
+    /* Ocultar marca de Streamlit para acabado profesional */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    
+    /* Hero Banner Corporativo */
+    .hero-banner {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #ffffff;
+        padding: 2.5rem 2rem;
+        border-radius: 16px;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        border-left: 6px solid #3b82f6;
+    }
+    
+    .hero-title {
+        font-size: 2.4rem;
         font-weight: 800;
-        color: #1d3557;
+        letter-spacing: -0.5px;
+        margin-bottom: 0.5rem;
+        color: #f8fafc;
+    }
+    
+    .hero-desc {
+        font-size: 1.1rem;
+        font-weight: 400;
+        color: #94a3b8;
+    }
+    
+    /* Tarjetas de métricas Glassmorphism / Clean */
+    .metric-card {
+        background-color: #ffffff;
+        border: 1px solid #f1f5f9;
+        border-radius: 12px;
+        padding: 1.5rem 1.2rem;
+        text-align: left;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+    }
+    
+    .metric-title {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
         margin-bottom: 0.5rem;
     }
-    .subtitle {
-        font-size: 1.1rem;
-        color: #495057;
-        margin-bottom: 2rem;
-    }
-    .metric-card {
-        background-color: #f8f9fa;
-        border: 1px solid #e9ecef;
-        border-radius: 8px;
-        padding: 1rem;
-        text-align: center;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    }
-    .metric-title {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: #6c757d;
-        text-transform: uppercase;
-        margin-bottom: 0.25rem;
-    }
+    
     .metric-value {
-        font-size: 1.8rem;
+        font-size: 1.9rem;
         font-weight: 700;
-        color: #028090;
+        color: #0f172a;
+        line-height: 1.2;
+    }
+    
+    .metric-sub {
+        font-size: 0.85rem;
+        color: #64748b;
+        margin-top: 0.4rem;
+        font-weight: 400;
+    }
+    
+    /* Banner de Presupuesto Corporativo */
+    .budget-banner {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        color: #f8fafc;
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        font-size: 1.35rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        margin-top: 1.5rem;
+        margin-bottom: 2rem;
+        border-left: 5px solid #028090;
+    }
+    
+    /* Estilos de inputs de barra lateral */
+    .css-1644de7 {
+        background-color: #f8fafc !important;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# Rutas del proyecto
+# Rutas del proyecto y constantes
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 CSV_PATH = PROJECT_ROOT / "02_datos" / "01_Originales" / "salesweekly.csv"
 ARTEFACTO_PATH = PROJECT_ROOT / "06_despliegue" / "artefacto_pipeline.pkl"
@@ -88,6 +154,17 @@ DESCRIPTIONS = {
     'n05c': 'Hipnóticos y sedantes (n05c)',
     'r03': 'Anti-asmáticos / Vías respiratorias (r03)',
     'r06': 'Antihistamínicos de uso sistémico (r06)'
+}
+
+UNIT_COSTS = {
+    'm01ab': 4.50,
+    'm01ae': 3.80,
+    'n02ba': 2.90,
+    'n02be': 3.20,
+    'n05b': 5.10,
+    'n05c': 6.50,
+    'r03': 14.20,
+    'r06': 4.80
 }
 
 # Funciones de procesamiento de datos
@@ -146,9 +223,13 @@ def predict_next_week(df_processed, pipelines):
             predictions[target] = float(np.clip(pred, 0, None))
     return next_date, predictions
 
-# Iniciar aplicación
-st.markdown("<div class='main-title'>💊 Pharma Sales Forecast — Decision Support</div>", unsafe_allow_html=True)
-st.markdown("<div class='subtitle'>Sistema predictivo e inteligente de soporte de decisiones para compras y stock de seguridad</div>", unsafe_allow_html=True)
+# Renderizar Hero Banner
+st.markdown("""
+<div class="hero-banner">
+    <div class="hero-title">Optimización de la Gestión del Inventario</div>
+    <div class="hero-desc">Sistema de Soporte de Decisiones (DSS) para la planificación y compra inteligente de suministros farmacéuticos.</div>
+</div>
+""", unsafe_allow_html=True)
 
 # Cargar recursos
 try:
@@ -163,7 +244,7 @@ except Exception as e:
 
 if data_loaded:
     # Sidebar de Control
-    st.sidebar.header("🎯 Parámetros de Simulación")
+    st.sidebar.header("🎯 Parámetros del Suministro")
     
     # Menú de selección de Fármaco
     selected_target = st.sidebar.selectbox(
@@ -183,122 +264,188 @@ if data_loaded:
     
     # Histórico a mostrar
     view_weeks = st.sidebar.slider(
-        "Semanas históricas a mostrar en gráfico",
+        "Historial visible (Semanas)",
         min_value=10,
         max_value=100,
         value=52,
         step=10
     )
     
+    # Coste unitario configurable
+    costs = {}
+    with st.sidebar.expander("💰 Configurar Costes Unitarios (€)"):
+        for t in TARGETS:
+            costs[t] = st.number_input(
+                f"{t.upper()} Coste/Caja",
+                min_value=0.10,
+                max_value=150.0,
+                value=UNIT_COSTS[t],
+                step=0.50,
+                format="%.2f"
+            )
+            
     st.sidebar.markdown("---")
-    st.sidebar.info("💡 **Stock de Seguridad:** Ajuste sugerido para amortiguar fluctuaciones imprevistas de demanda.")
+    st.sidebar.info("💡 **Stock de Seguridad:** Colchón de seguridad para mitigar roturas ante picos de demanda imprevistos.")
 
-    # 1. Row de KPIs para la categoría seleccionada
-    st.subheader(f"Métricas y Pronóstico: {DESCRIPTIONS[selected_target]}")
-    
+    # 1. Alerta de Riesgo de Rotura de Stock
     pred_val = next_predictions[selected_target]
     rec_order = pred_val * (1 + safety_stock / 100)
+    unit_cost = costs[selected_target]
+    total_cost = rec_order * unit_cost
     
+    recent_mean = df_data[selected_target].tail(4).mean()
+    percentage_above = ((pred_val - recent_mean) / recent_mean) * 100
+    
+    st.subheader(f"Análisis Operativo: {DESCRIPTIONS[selected_target]}")
+    
+    if percentage_above > 30:
+        st.warning(f"⚠️ **RIESGO DE ROTURA (ALTO)**: La predicción ({pred_val:.1f} cajas) excede la media reciente de 4 semanas ({recent_mean:.1f} cajas) en un **{percentage_above:.1f}%**. Incremento estacional detectado.")
+    else:
+        st.info(f"ℹ️ **Estado de Stock (Estable)**: Demanda estable ({percentage_above:+.1f}% respecto a la media reciente de {recent_mean:.1f} cajas).")
+        
+    # Tarjetas de KPI
     kpi_col1, kpi_col2, kpi_col3, kpi_col4 = st.columns(4)
     
     with kpi_col1:
         st.markdown(f"""
         <div class="metric-card">
-            <div class="metric-title">Modelo Seleccionado</div>
-            <div class="metric-value" style="font-size: 1.2rem; margin-top:0.4rem;">{WINNERS[selected_target]}</div>
+            <div class="metric-title">Modelo Predictivo</div>
+            <div class="metric-value" style="font-size: 1.25rem; color: #028090;">{WINNERS[selected_target]}</div>
+            <div class="metric-sub">MAPE Validación: {MAPES[selected_target]}</div>
         </div>
         """, unsafe_allow_html=True)
         
     with kpi_col2:
         st.markdown(f"""
         <div class="metric-card">
-            <div class="metric-title">Error del Modelo (MAPE)</div>
-            <div class="metric-value">{MAPES[selected_target]}</div>
+            <div class="metric-title">Pronóstico de Demanda</div>
+            <div class="metric-value">{pred_val:.1f} <span style="font-size: 1rem; color: #64748b; font-weight: normal;">cajas</span></div>
+            <div class="metric-sub">Semana: {next_date.strftime('%d/%m/%Y')}</div>
         </div>
         """, unsafe_allow_html=True)
         
     with kpi_col3:
         st.markdown(f"""
-        <div class="metric-card">
-            <div class="metric-title">Predicción (Próx. Semana)</div>
-            <div class="metric-value">{pred_val:.1f} cajas</div>
+        <div class="metric-card" style="border-left: 4px solid #0ea5e9;">
+            <div class="metric-title" style="color: #0ea5e9;">Pedido Recomendado</div>
+            <div class="metric-value">{rec_order:.1f} <span style="font-size: 1rem; color: #64748b; font-weight: normal;">cajas</span></div>
+            <div class="metric-sub">Buffer aplicado: +{safety_stock}%</div>
         </div>
         """, unsafe_allow_html=True)
         
     with kpi_col4:
         st.markdown(f"""
-        <div class="metric-card" style="border-color: #028090; background-color: #f0fdfa;">
-            <div class="metric-title" style="color: #028090;">Pedido Sugerido</div>
-            <div class="metric-value" style="color: #028090;">{rec_order:.1f} cajas</div>
+        <div class="metric-card" style="border-left: 4px solid #10b981;">
+            <div class="metric-title" style="color: #10b981;">Inversión Estimada</div>
+            <div class="metric-value">{total_cost:,.2f} €</div>
+            <div class="metric-sub">Costo unitario: {unit_cost:.2f} €</div>
         </div>
         """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
     # 2. Gráfico interactivo (Últimas N semanas + predicción)
-    st.subheader("📈 Tendencia de Ventas y Pronóstico Futuro")
+    st.subheader("📈 Proyección Histórica y Pronóstico Futuro")
     
     # Recortar datos históricos
     df_plot = df_data[['date', selected_target]].tail(view_weeks).copy()
-    df_plot['Tipo'] = 'Histórico Real'
+    df_plot['Tipo'] = 'Venta Histórica'
     
     # Agregar fila de predicción
     df_pred_row = pd.DataFrame({
         'date': [next_date],
         selected_target: [pred_val],
-        'Tipo': ['Pronóstico Modelo']
+        'Tipo': 'Pronóstico Futuro'
     })
     
-    # Concatenar para graficar continuo
-    # Para que se conecte la línea, duplicamos la última fila histórica como pronóstico
+    # Concatenar para continuidad visual
     df_conn_row = pd.DataFrame({
         'date': [df_plot.iloc[-1]['date']],
         selected_target: [df_plot.iloc[-1][selected_target]],
-        'Tipo': ['Pronóstico Modelo']
+        'Tipo': 'Pronóstico Futuro'
     })
     
     df_combined = pd.concat([df_plot, df_conn_row, df_pred_row]).reset_index(drop=True)
-    df_combined['Ventas (Unidades)'] = df_combined[selected_target]
+    df_combined['Cajas Vendidas'] = df_combined[selected_target]
     
-    # Graficar con altair integrado en streamlit
+    # Graficar con altair
     import altair as alt
     
     chart = alt.Chart(df_combined).mark_line(point=True).encode(
-        x=alt.X('date:T', title='Fecha'),
-        y=alt.Y('Ventas (Unidades):Q', title='Ventas (Cajas)'),
-        color=alt.Color('Tipo:N', scale=alt.Scale(domain=['Histórico Real', 'Pronóstico Modelo'], range=['#028090', '#fca311'])),
-        tooltip=['date:T', 'Ventas (Unidades):Q', 'Tipo:N']
+        x=alt.X('date:T', title='Eje Temporal (Semanas)'),
+        y=alt.Y('Cajas Vendidas:Q', title='Cantidad (Cajas)'),
+        color=alt.Color('Tipo:N', scale=alt.Scale(domain=['Venta Histórica', 'Pronóstico Futuro'], range=['#1e293b', '#fca311']), title="Leyenda"),
+        tooltip=['date:T', 'Cajas Vendidas:Q', 'Tipo:N']
     ).properties(
         width=1000,
-        height=400
+        height=380
+    ).configure_view(
+        strokeWidth=0
+    ).configure_axis(
+        gridColor='#f1f5f9',
+        labelColor='#64748b',
+        titleColor='#475569'
     ).interactive()
     
     st.altair_chart(chart, use_container_width=True)
 
     # 3. Planificador Global Logístico de Compras
     st.markdown("---")
-    st.subheader("📋 Planificador Global de Compras Semanales (Todos los Targets)")
+    st.subheader("📋 Plan de Adquisición de Suministros (Consolidado Semanal)")
     
     summary_data = []
+    total_budget = 0.0
+    
     for t in TARGETS:
         p_val = next_predictions[t]
         s_order = p_val * (1 + safety_stock / 100)
+        u_cost = costs[t]
+        t_cost = s_order * u_cost
+        total_budget += t_cost
+        
+        # Calcular riesgo de rotura basado en la predicción semanal
+        rec_mean_t = df_data[t].tail(4).mean()
+        risk_status = "Alto ⚠️" if (p_val - rec_mean_t) / rec_mean_t > 0.30 else "Bajo ✅"
+        
         summary_data.append({
-            "Código ATC": t,
+            "Código ATC": t.upper(),
             "Descripción": DESCRIPTIONS[t].split(" (")[0],
-            "Algoritmo": WINNERS[t].split(" ")[0],
-            "Error (MAPE)": MAPES[t],
-            "Predicción Base": f"{p_val:.1f} cajas",
-            f"Pedido Recomendado (+{safety_stock}%)": f"{s_order:.1f} cajas"
+            "Riesgo Rotura": risk_status,
+            "Pronóstico (Cajas)": f"{p_val:.1f}",
+            "Pedido Sugerido (Cajas)": f"{s_order:.1f}",
+            "Coste/Caja": f"{u_cost:.2f} €",
+            "Coste Total": f"{t_cost:,.2f} €"
         })
         
     df_summary = pd.DataFrame(summary_data)
-    st.table(df_summary)
+    
+    # Formatear tabla limpia y profesional en streamlit
+    st.dataframe(
+        df_summary,
+        column_config={
+            "Código ATC": st.column_config.TextColumn("Código ATC", width="medium"),
+            "Descripción": st.column_config.TextColumn("Descripción del Fármaco", width="large"),
+            "Riesgo Rotura": st.column_config.TextColumn("Riesgo Rotura", width="small"),
+            "Pronóstico (Cajas)": st.column_config.TextColumn("Pronóstico", width="small"),
+            "Pedido Sugerido (Cajas)": st.column_config.TextColumn("Pedido Sugerido", width="small"),
+            "Coste/Caja": st.column_config.TextColumn("Coste/Caja", width="small"),
+            "Coste Total": st.column_config.TextColumn("Coste Total", width="small"),
+        },
+        hide_index=True,
+        use_container_width=True
+    )
+
+    # Mostrar la tarjeta de presupuesto total consolidado
+    st.markdown(f"""
+    <div class="budget-banner">
+        💼 PRESUPUESTO CONSOLIDADO DE COMPRA SEMANAL SUGERIDO: {total_budget:,.2f} €
+    </div>
+    """, unsafe_allow_html=True)
 
     # Descarga
     csv = df_summary.to_csv(index=False).encode('utf-8')
     st.download_button(
-        label="📥 Descargar Plan de Pedidos en CSV",
+        label="📥 Exportar Plan de Compras a CSV (Formato Logístico)",
         data=csv,
         file_name=f"plan_compras_semana_{next_date.strftime('%Y_%W')}.csv",
         mime="text/csv"
