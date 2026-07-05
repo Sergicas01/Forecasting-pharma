@@ -77,4 +77,4 @@ Desde el punto de vista del negocio y de la planificación de compras semanales,
 1. Cargar el dataset `../02_datos/03_Entrenamiento/04_train_tablon_transformado.pkl`.
 2. Para cada target, seleccionar únicamente las variables del calendario y sus correspondientes lags y medias móviles (`*_lag_1`, `*_lag_2`, `*_roll_mean_4`).
 3. Eliminar las filas que contengan NaN en las columnas seleccionadas (las 4 primeras semanas).
-4. Entrenar el modelo final de producción utilizando los algoritmos e hiperparámetros especificados en `../06_resultados/Modelizacion/config_mejor_modelo.json` sobre el **100% de los datos**.
+4. Entrenar el modelo final de producción utilizando los algoritmos e hiperparámetros especificados en `../05_resultados/Modelizacion/config_mejor_modelo.json` sobre el **100% de los datos**.

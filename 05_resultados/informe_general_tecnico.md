@@ -72,12 +72,12 @@ Al evaluar qué variables dominan el modelo usando importancia por permutación 
 
 El pipeline se automatizó mediante scripts Python con un diseño **pipeline-first** basado en `scikit-learn` y serialización robusta mediante `pickle`:
 
-* **`07_despliegue/01_reentrenamiento.py`**:
+* **`06_despliegue/01_reentrenamiento.py`**:
   - Carga el archivo crudo de series temporales `salesweekly.csv`.
   - Procesa y genera las variables temporales y autorregresivas.
   - Define un preprocesador `ColumnTransformer` para aislar las variables del target de forma dinámica.
   - Envuelve el pipeline en una búsqueda cruzada aleatoria (`RandomizedSearchCV`) que evalúa y optimiza hiperparámetros de `RandomForest`, `HistGradientBoosting` y `XGBoost`.
   - Serializa los 8 pipelines entrenados en un diccionario en `artefacto_pipeline.pkl`.
-* **`07_despliegue/02_produccion_scoring.py`**:
+* **`06_despliegue/02_produccion_scoring.py`**:
   - Diseñado para recibir argumentos de entrada (`--input`) y salida (`--output`) mediante consola.
   - Carga el artefacto serializado, calcula los lags del archivo entrante y genera las predicciones acotadas a valores no negativos (0 o superior), evitando ventas negativas.

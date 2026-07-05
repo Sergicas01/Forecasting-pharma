@@ -9,7 +9,7 @@ import numpy as np
 ROOT = Path.cwd()
 INPUT_PATH = ROOT / "02_datos/03_Entrenamiento/01_train_tablon_integrado.pkl"
 OUTPUT_PATH = ROOT / "02_datos/03_Entrenamiento/02_train_tablon_calidad.pkl"
-REPORT_PATH = ROOT / "06_resultados/Calidad_Datos/informe_calidad_datos.md"
+REPORT_PATH = ROOT / "05_resultados/Calidad_Datos/informe_calidad_datos.md"
 INSTRUCTIONS_PATH = ROOT / "copilot-instructions.md"
 
 

@@ -6,7 +6,7 @@ import seaborn as sns
 
 def main():
     # 1. Cargar el csv de ranking
-    csv_path = '../06_resultados/Modelizacion/ranking_modelos.csv'
+    csv_path = '../05_resultados/Modelizacion/ranking_modelos.csv'
     if not os.path.exists(csv_path):
         print(f"Error: {csv_path} no existe.")
         return
@@ -91,7 +91,7 @@ def main():
     plt.tight_layout()
 
     # Guardar imagen en alta resolución
-    out_dir = '../06_resultados/Modelizacion'
+    out_dir = '../05_resultados/Modelizacion'
     os.makedirs(out_dir, exist_ok=True)
     img_path = os.path.join(out_dir, 'comparativa_modelos.png')
     plt.savefig(img_path, dpi=300, bbox_inches='tight')

@@ -256,7 +256,7 @@ def main():
         interpretabilidad[target] = importancias_dict
 
     # 8. Guardar resultados
-    out_dir = '../06_resultados/Modelizacion'
+    out_dir = '../05_resultados/Modelizacion'
     os.makedirs(out_dir, exist_ok=True)
 
     config_final = {

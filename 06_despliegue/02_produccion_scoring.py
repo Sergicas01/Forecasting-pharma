@@ -7,7 +7,7 @@ import numpy as np
 import pickle
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-ARTEFACTO_PATH = PROJECT_ROOT / "07_despliegue" / "artefacto_pipeline.pkl"
+ARTEFACTO_PATH = PROJECT_ROOT / "06_despliegue" / "artefacto_pipeline.pkl"
 TARGETS = ['m01ab', 'm01ae', 'n02ba', 'n02be', 'n05b', 'n05c', 'r03', 'r06']
 
 # 1. Función de procesamiento de filas y preparación temporal
