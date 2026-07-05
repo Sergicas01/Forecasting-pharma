@@ -187,8 +187,104 @@ def load_data():
 
 @st.cache_resource
 def load_pipelines():
-    with open(ARTEFACTO_PATH, "rb") as f:
-        return pickle.load(f)
+    try:
+        with open(ARTEFACTO_PATH, "rb") as f:
+            return pickle.load(f)
+    except Exception as e:
+        st.warning("⚠️ Discrepancia de versión del modelo detectada. Ajustando y reentrenando pipelines localmente...")
+        
+        # Importación dinámica para evitar lentitud si no es necesario
+        from sklearn.model_selection import TimeSeriesSplit, RandomizedSearchCV
+        from sklearn.pipeline import Pipeline
+        from sklearn.compose import make_column_transformer
+        from sklearn.metrics import make_scorer
+        from sklearn.ensemble import RandomForestRegressor, HistGradientBoostingRegressor
+        try:
+            from xgboost import XGBRegressor
+            XGB_AVAILABLE = True
+        except Exception:
+            XGB_AVAILABLE = False
+            
+        def stable_mape(y_true, y_pred):
+            y_true = np.array(y_true)
+            y_pred = np.array(y_pred)
+            mask = y_true != 0
+            if not np.any(mask):
+                return 0.0
+            return np.mean(np.abs(y_true[mask] - y_pred[mask]) / np.abs(y_true[mask]))
+
+        mape_scorer = make_scorer(stable_mape, greater_is_better=False)
+        
+        # Obtener datos procesados
+        df_clean = load_data()
+        
+        max_date = df_clean['date'].max()
+        cutoff_date = max_date - pd.DateOffset(months=3)
+        df_train = df_clean[df_clean['date'] < cutoff_date].copy()
+        
+        tscv = TimeSeriesSplit(n_splits=3)
+        trained_pipelines = {}
+        
+        for target in TARGETS:
+            features_target = ['year', 'month', 'day', 'weekofyear', f'{target}_lag_1', f'{target}_lag_2', f'{target}_roll_mean_4']
+            
+            preprocesador = make_column_transformer(
+                ("passthrough", features_target),
+                remainder="drop"
+            )
+            
+            pipe = Pipeline([
+                ('preprocessor', preprocesador),
+                ('regressor', RandomForestRegressor(random_state=42))
+            ])
+            
+            param_distributions = [
+                {
+                    'regressor': [RandomForestRegressor(random_state=42)],
+                    'regressor__n_estimators': [50, 100],
+                    'regressor__max_depth': [3, 5, None],
+                    'regressor__min_samples_split': [2, 5],
+                    'regressor__min_samples_leaf': [1, 2]
+                },
+                {
+                    'regressor': [HistGradientBoostingRegressor(random_state=42)],
+                    'regressor__max_iter': [50, 100],
+                    'regressor__learning_rate': [0.01, 0.1],
+                    'regressor__max_depth': [3, 5, None]
+                }
+            ]
+            
+            if XGB_AVAILABLE:
+                param_distributions.append({
+                    'regressor': [XGBRegressor(random_state=42)],
+                    'regressor__n_estimators': [50, 100],
+                    'regressor__max_depth': [3, 5],
+                    'regressor__learning_rate': [0.01, 0.1]
+                })
+                
+            search = RandomizedSearchCV(
+                estimator=pipe,
+                param_distributions=param_distributions,
+                n_iter=5,  # Pocas iteraciones para entrenar súper rápido
+                cv=tscv,
+                scoring=mape_scorer,
+                random_state=42,
+                n_jobs=-1,
+                refit=True
+            )
+            
+            y_train = df_train[target]
+            search.fit(df_train, y_train)
+            trained_pipelines[target] = search.best_estimator_
+            
+        # Guardar el nuevo pkl compatible para acelerar los siguientes arranques
+        try:
+            with open(ARTEFACTO_PATH, "wb") as f:
+                pickle.dump(trained_pipelines, f)
+        except Exception:
+            pass  # Si el entorno en la nube es de solo lectura, continuamos en memoria
+            
+        return trained_pipelines
 
 # Generación del dataframe del futuro (Next Week)
 def predict_next_week(df_processed, pipelines):
