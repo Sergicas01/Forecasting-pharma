@@ -191,7 +191,7 @@ def load_pipelines():
         with open(ARTEFACTO_PATH, "rb") as f:
             return pickle.load(f)
     except Exception as e:
-        st.warning("⚠️ Discrepancia de versión del modelo detectada. Ajustando y reentrenando pipelines localmente...")
+        print("⚠️ Discrepancia de versión del modelo detectada. Ajustando y reentrenando pipelines localmente...")
         
         # Importación dinámica para evitar lentitud si no es necesario
         from sklearn.model_selection import TimeSeriesSplit, RandomizedSearchCV
@@ -217,6 +217,25 @@ def load_pipelines():
         
         # Obtener datos procesados
         df_clean = load_data()
+        
+        # Ingeniería de características para entrenamiento (lags, rollings y calendario)
+        date_series = pd.to_datetime(df_clean['date'])
+        df_clean['year'] = date_series.dt.year
+        df_clean['month'] = date_series.dt.month
+        df_clean['day'] = date_series.dt.day
+        df_clean['weekofyear'] = date_series.dt.isocalendar().week.astype(int)
+        
+        for t in TARGETS:
+            if t in df_clean.columns:
+                lag_1 = df_clean[t].shift(1)
+                lag_2 = df_clean[t].shift(2)
+                roll_4 = lag_1.rolling(window=4, min_periods=1).mean()
+                
+                df_clean[f'{t}_lag_1'] = lag_1
+                df_clean[f'{t}_lag_2'] = lag_2
+                df_clean[f'{t}_roll_mean_4'] = roll_4
+                
+        df_clean = df_clean.dropna(subset=[f'{t}_roll_mean_4' for t in TARGETS if t in df_clean.columns]).reset_index(drop=True)
         
         max_date = df_clean['date'].max()
         cutoff_date = max_date - pd.DateOffset(months=3)
