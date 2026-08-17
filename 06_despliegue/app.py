@@ -782,7 +782,7 @@ if data_loaded:
 
 
     with tab_roi:
-        st.markdown("### Simulador ROI de Negocio: Forecast IA vs Tradicional")
+        st.markdown("### Simulador ROI de Negocio: Forecast vs Tradicional")
         st.markdown("""
         Este simulador evalúa el impacto financiero completo en la cuenta de resultados logística de una farmacéutica. 
         Compara un modelo de previsión tradicional frente a un modelo de Inteligencia Artificial en base a ineficiencias de inventario, WACC y el lote económico de pedido (EOQ).
