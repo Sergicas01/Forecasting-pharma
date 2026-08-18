@@ -863,7 +863,7 @@ if data_loaded:
             roi_acc_trad = st.slider(
                 "Precisión Modelo Tradicional (%)",
                 min_value=50,
-                max_value=80,
+                max_value=100,
                 value=70,
                 step=1,
                 key="roi_acc_trad",
@@ -872,8 +872,8 @@ if data_loaded:
             
             roi_acc_ia = st.slider(
                 "Precisión Modelo IA (%)",
-                min_value=75,
-                max_value=99,
+                min_value=50,
+                max_value=100,
                 value=85,
                 step=1,
                 key="roi_acc_ia",
@@ -928,8 +928,8 @@ if data_loaded:
                 'lucro': roi_roturas_ia * roi_margen_u
             }
             
-            roi_total_trad = sum(roi_costs_trad.values())
-            roi_total_ia = sum(roi_costs_ia.values())
+            roi_total_trad = sum([roi_costs_trad[k] for k in ['espacio', 'capital', 'caducidad', 'lucro']])
+            roi_total_ia = sum([roi_costs_ia[k] for k in ['espacio', 'capital', 'caducidad', 'lucro']])
             roi_total_ahorro = roi_total_trad - roi_total_ia
             
             roi_cap_liberado = (roi_ss_trad - roi_ss_ia) * roi_coste_u
@@ -965,7 +965,6 @@ if data_loaded:
             
             # Fila de tabla de comparación
             roi_conceptos = [
-                ("Coste Pedidos a Fábrica", roi_costs_trad['pedidos'], roi_costs_ia['pedidos']),
                 ("Coste Espacio Físico", roi_costs_trad['espacio'], roi_costs_ia['espacio']),
                 ("Coste Capital Inmovilizado", roi_costs_trad['capital'], roi_costs_ia['capital']),
                 ("Coste Caducidad / Mermas", roi_costs_trad['caducidad'], roi_costs_ia['caducidad']),
