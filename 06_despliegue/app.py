@@ -38,7 +38,7 @@ st.markdown("""
         padding: 3rem 2.5rem;
         border-radius: 0px !important;
         margin-bottom: 2.5rem;
-        border: 2px solid #2563eb;
+        border: 2px solid #1e3a8a;
     }
     
     .hero-title {
@@ -68,7 +68,7 @@ st.markdown("""
     }
     
     .metric-card:hover {
-        border-color: #2563eb;
+        border-color: #1e3a8a;
         background-color: #f8fafc;
     }
     
@@ -101,7 +101,7 @@ st.markdown("""
         color: #ffffff;
         border-radius: 0px !important;
         padding: 1.75rem;
-        border: 2px solid #2563eb;
+        border: 2px solid #1e3a8a;
         margin-bottom: 1.5rem;
     }
     
@@ -140,7 +140,7 @@ st.markdown("""
         letter-spacing: 0.5px;
         margin-top: 2rem;
         margin-bottom: 2rem;
-        border: 2px solid #2563eb;
+        border: 2px solid #1e3a8a;
     }
     
     /* Caja de Fórmulas Matemáticas (Esquinas Rectas y Borde Uniforme) */
@@ -162,7 +162,7 @@ st.markdown("""
     /* Personalización Premium del Sidebar */
     [data-testid="stSidebar"] {
         background-color: #0b132b !important;
-        color: #f8fafc !important;
+        color: #cbd5e1 !important;
     }
     [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
         color: #f8fafc !important;
@@ -174,10 +174,65 @@ st.markdown("""
     [data-testid="stSidebar"] .stMarkdown {
         color: #cbd5e1 !important;
     }
-    [data-testid="stSidebar"] .streamlit-expanderHeader {
+    /* Estilos robustos para cabeceras de expansores en el Sidebar (evita fondos blancos en cualquier estado) */
+    [data-testid="stSidebar"] [data-testid="stExpander"] summary,
+    [data-testid="stSidebar"] [data-testid="stExpander"] details summary,
+    [data-testid="stSidebar"] [data-testid="stExpander"] details[open] summary,
+    [data-testid="stSidebar"] [data-testid="stExpander"] .streamlit-expanderHeader,
+    [data-testid="stSidebar"] [data-testid="stExpander"] summary:hover,
+    [data-testid="stSidebar"] [data-testid="stExpander"] summary:focus,
+    [data-testid="stSidebar"] [data-testid="stExpander"] summary:active,
+    [data-testid="stSidebar"] [data-testid="stExpander"] details[open] summary:hover,
+    [data-testid="stSidebar"] [data-testid="stExpander"] details[open] summary:focus,
+    [data-testid="stSidebar"] [data-testid="stExpander"] details[open] summary:active {
         background-color: #1c2541 !important;
-        border: 1px solid #2563eb !important;
+        color: #cbd5e1 !important;
+        border: 1px solid #1e3a8a !important;
         border-radius: 0px !important;
+    }
+    
+    [data-testid="stSidebar"] [data-testid="stExpander"] summary *,
+    [data-testid="stSidebar"] [data-testid="stExpander"] details summary *,
+    [data-testid="stSidebar"] [data-testid="stExpander"] details[open] summary *,
+    [data-testid="stSidebar"] [data-testid="stExpander"] .streamlit-expanderHeader *,
+    [data-testid="stSidebar"] [data-testid="stExpander"] summary:hover *,
+    [data-testid="stSidebar"] [data-testid="stExpander"] summary:focus *,
+    [data-testid="stSidebar"] [data-testid="stExpander"] summary:active *,
+    [data-testid="stSidebar"] [data-testid="stExpander"] details[open] summary:hover *,
+    [data-testid="stSidebar"] [data-testid="stExpander"] details[open] summary:focus *,
+    [data-testid="stSidebar"] [data-testid="stExpander"] details[open] summary:active * {
+        background-color: transparent !important;
+        color: #cbd5e1 !important;
+    }
+    
+    /* Prevenir fondos blancos en inputs al hacer click/foco */
+    [data-testid="stSidebar"] input,
+    [data-testid="stSidebar"] select,
+    [data-testid="stSidebar"] textarea,
+    [data-testid="stSidebar"] div[data-baseweb="select"],
+    [data-testid="stSidebar"] div[data-baseweb="input"] {
+        background-color: #1c2541 !important;
+        color: #cbd5e1 !important;
+    }
+    [data-testid="stSidebar"] input:focus,
+    [data-testid="stSidebar"] div[data-baseweb="select"]:focus-within,
+    [data-testid="stSidebar"] div[data-baseweb="input"]:focus-within {
+        background-color: #1c2541 !important;
+        color: #ffffff !important;
+        border-color: #1e3a8a !important;
+    }
+    
+    /* Prevenir colisiones en dropdowns (desplegables) de selectbox */
+    div[role="listbox"] {
+        background-color: #1c2541 !important;
+        color: #cbd5e1 !important;
+    }
+    div[role="option"] {
+        color: #cbd5e1 !important;
+    }
+    div[role="option"]:hover, div[role="option"][aria-selected="true"] {
+        background-color: #1e3a8a !important;
+        color: #ffffff !important;
     }
     
     /* Estilos para pestañas de Streamlit */
@@ -199,26 +254,26 @@ st.markdown("""
     }
     
     .stTabs [data-baseweb="tab"]:hover {
-        color: #2563eb;
+        color: #1e3a8a;
     }
     
     .stTabs [aria-selected="true"] {
-        color: #2563eb !important;
-        border-bottom: 3px solid #2563eb !important;
+        color: #1e3a8a !important;
+        border-bottom: 3px solid #1e3a8a !important;
     }
     
     /* Botones de Streamlit - Esquinas Rectas y Borde */
     .stDownloadButton>button {
         border-radius: 0px !important;
-        border: 2px solid #2563eb !important;
+        border: 2px solid #1e3a8a !important;
         background-color: transparent !important;
-        color: #2563eb !important;
+        color: #1e3a8a !important;
         font-weight: 600 !important;
         padding: 0.6rem 1.2rem !important;
         transition: background-color 0.2s, color 0.2s !important;
     }
     .stDownloadButton>button:hover {
-        background-color: #2563eb !important;
+        background-color: #1e3a8a !important;
         color: #ffffff !important;
     }
 </style>
@@ -443,6 +498,7 @@ def predict_next_week(df_processed, pipelines):
             predictions[target] = float(np.clip(pred, 0, None))
     return next_date, predictions
 
+
 # Calcular desviaciones estándar de residuos e históricas para cada target (capturando estacionalidad)
 @st.cache_data
 def calculate_catalog_uncertainty(_pipelines, df_processed):
@@ -526,55 +582,63 @@ if data_loaded:
     st.sidebar.markdown("---")
     st.sidebar.header("Parámetros Logísticos")
     
-    servicio_opciones = {
-        "90% (Z = 1.28)": 1.282,
-        "95% (Z = 1.645)": 1.645,
-        "98% (Z = 2.05)": 2.054,
-        "99% (Z = 2.33)": 2.326,
-        "99.9% (Z = 3.09)": 3.090
-    }
-    opt_z_label = st.sidebar.selectbox(
-        "Nivel de Servicio Deseado",
-        options=list(servicio_opciones.keys()),
-        index=1, # 95% por defecto
-        help="Probabilidad deseada de no incurrir en roturas de stock."
-    )
-    opt_z = servicio_opciones[opt_z_label]
+    # 1. Nivel de Servicio
+    with st.sidebar.expander("🎯 Garantía de Suministro (Nivel Servicio)", expanded=True):
+        st.caption("Porcentaje de la demanda que deseamos cubrir garantizadamente sin quedarnos sin stock.")
+        servicio_opciones = {
+            "90% (Z = 1.28)": 1.282,
+            "95% (Z = 1.645)": 1.645,
+            "98% (Z = 2.05)": 2.054,
+            "99% (Z = 2.33)": 2.326,
+            "99.9% (Z = 3.09)": 3.090
+        }
+        opt_z_label = st.selectbox(
+            "Nivel de Servicio Deseado",
+            options=list(servicio_opciones.keys()),
+            index=1, # 95% por defecto
+            help="Probabilidad deseada de no incurrir en roturas de stock."
+        )
+        opt_z = servicio_opciones[opt_z_label]
     
-    opt_l_dias = st.sidebar.number_input(
-        "Plazo de Entrega (L) [Días]",
-        min_value=0.5,
-        max_value=365.0,
-        value=10.08,
-        step=1.0,
-        help="Lead time o tiempo en días que transcurre desde que se pide hasta que se recibe."
-    )
-    opt_sigma_l = st.sidebar.number_input(
-        "Desviación Lead Time (σ_L) [Días]",
-        min_value=0.0,
-        max_value=30.0,
-        value=2.00,
-        step=0.5,
-        help="Medida de la variabilidad o retrasos del proveedor en días."
-    )
+    # 2. Tiempos del Proveedor (Lead Time)
+    with st.sidebar.expander("🚚 Tiempos del Proveedor (Lead Time)", expanded=True):
+        st.caption("Tiempos de entrega y fiabilidad del proveedor logístico.")
+        opt_l_dias = st.number_input(
+            "Plazo de Entrega (L) [Días]",
+            min_value=0.5,
+            max_value=365.0,
+            value=10.08,
+            step=1.0,
+            help="Tiempo promedio en días que transcurre desde que se pide hasta que se recibe."
+        )
+        opt_sigma_l = st.number_input(
+            "Desviación Lead Time (σ_L) [Días]",
+            min_value=0.0,
+            max_value=30.0,
+            value=2.00,
+            step=0.5,
+            help="Medida de la variabilidad o días máximos de retraso habituales del proveedor."
+        )
     
-    opt_s_pedido = st.sidebar.number_input(
-        "Coste Fijo por Pedido (S) [€]",
-        min_value=1.0,
-        max_value=5000.0,
-        value=50.0,
-        step=5.0,
-        help="Costes administrativos y de transporte por orden."
-    )
-    
-    opt_h_almacen = st.sidebar.number_input(
-        "Coste Almacén Anual/Ud (H) [€]",
-        min_value=0.1,
-        max_value=500.0,
-        value=15.02,
-        step=1.0,
-        help="Coste anual de mantener una unidad en almacén."
-    )
+    # 3. Costes Operativos
+    with st.sidebar.expander("💶 Costes Operativos e Inventario", expanded=True):
+        st.caption("Costes administrativos y de almacenamiento para evaluar optimizaciones.")
+        opt_s_pedido = st.number_input(
+            "Coste por Pedido (S) [€]",
+            min_value=1.0,
+            max_value=5000.0,
+            value=50.0,
+            step=5.0,
+            help="Costo fijo administrativo y de transporte por emitir cada orden de compra."
+        )
+        opt_h_almacen = st.number_input(
+            "Coste Almacén Anual/Ud (H) [€]",
+            min_value=0.1,
+            max_value=500.0,
+            value=15.02,
+            step=1.0,
+            help="Coste anual de mantener una unidad o caja inmovilizada en almacén."
+        )
     
     # Coste unitario configurable
     costs = {}
@@ -590,10 +654,26 @@ if data_loaded:
             )
             
     st.sidebar.markdown("---")
+    st.sidebar.header("Visualización Gráfica")
+    dispersion_type = st.sidebar.selectbox(
+        "Visualizar Dispersión en Gráfico",
+        options=[
+            "Ninguna",
+            "Basada en MAPE (Error Histórico Medio)",
+            "Basada en Confianza Estadística (σ Residuos)"
+        ],
+        index=2,
+        help="Permite visualizar en el gráfico la dispersión del pronóstico en base al error o precisión del modelo."
+    )
+
     st.sidebar.info("Inventario Inteligente: El Stock de Seguridad y Punto de Pedido se calculan dinámicamente usando fórmulas estadísticas basadas en la estacionalidad corregida por la IA.")
 
     # Definición de pestañas principales
-    tab_plan, tab_roi = st.tabs(["Pronóstico y Plan de Compras", "Simulador ROI Negocio (IA vs Tradicional)"])
+    tab_plan, tab_scen, tab_roi = st.tabs([
+        "Pronóstico y Plan de Compras", 
+        "Simulador Logístico 'What-If'", 
+        "Simulador ROI Negocio (IA vs Tradicional)"
+    ])
     
     with tab_plan:
         pred_val = next_predictions[selected_target]
@@ -617,9 +697,9 @@ if data_loaded:
         st.subheader(f"Análisis Operativo: {DESCRIPTIONS[selected_target]}")
         
         if percentage_above > 30:
-            st.warning(f"**RIESGO DE ROTURA (ALTO)**: La predicción ({pred_val:.1f} cajas) excede la media reciente de 4 semanas ({recent_mean:.1f} cajas) en un **{percentage_above:.1f}%**. Incremento estacional detectado.")
+            st.warning(f"**RIESGO DE ROTURA (ALTO)**: La predicción ({pred_val:.0f} cajas) excede la media reciente de 4 semanas ({recent_mean:.0f} cajas) en un **{percentage_above:.1f}%**. Incremento estacional detectado.")
         else:
-            st.info(f"**Estado de Stock (Estable)**: Demanda estable ({percentage_above:+.1f}% respecto a la media reciente de {recent_mean:.1f} cajas).")
+            st.info(f"**Estado de Stock (Estable)**: Demanda estable ({percentage_above:+.1f}% respecto a la media reciente de {recent_mean:.0f} cajas).")
             
         # Tarjetas de KPI (Bordes rectos uniformes)
         kpi_col1, kpi_col2, kpi_col3, kpi_col4 = st.columns(4)
@@ -637,7 +717,7 @@ if data_loaded:
             st.markdown(f"""
             <div class="metric-card">
                 <div class="metric-title">Pronóstico de Demanda</div>
-                <div class="metric-value">{pred_val:.1f} <span style="font-size: 1rem; color: #64748b; font-weight: normal;">cajas</span></div>
+                <div class="metric-value">{pred_val:.0f} <span style="font-size: 1rem; color: #64748b; font-weight: normal;">cajas</span></div>
                 <div class="metric-sub">Semana: {next_date.strftime('%d/%m/%Y')}</div>
             </div>
             """, unsafe_allow_html=True)
@@ -645,9 +725,9 @@ if data_loaded:
         with kpi_col3:
             st.markdown(f"""
             <div class="metric-card">
-                <div class="metric-title" style="color: #2563eb;">Pedido Sugerido</div>
-                <div class="metric-value">{rec_order:.1f} <span style="font-size: 1rem; color: #64748b; font-weight: normal;">cajas</span></div>
-                <div class="metric-sub">Incluye SS óptimo: +{ss_val:.1f} cajas</div>
+                <div class="metric-title" style="color: #1e3a8a;">Pedido Sugerido</div>
+                <div class="metric-value">{rec_order:.0f} <span style="font-size: 1rem; color: #64748b; font-weight: normal;">cajas</span></div>
+                <div class="metric-sub">Incluye SS óptimo: +{ss_val:.0f} cajas</div>
             </div>
             """, unsafe_allow_html=True)
             
@@ -669,7 +749,7 @@ if data_loaded:
         df_plot = df_data[['date', selected_target]].tail(view_weeks).copy()
         df_plot['Tipo'] = 'Venta Histórica'
         
-        # Agregar fila de predicción
+        # Agregar fila de predicción (una sola semana)
         df_pred_row = pd.DataFrame({
             'date': [next_date],
             selected_target: [pred_val],
@@ -686,15 +766,90 @@ if data_loaded:
         df_combined = pd.concat([df_plot, df_conn_row, df_pred_row]).reset_index(drop=True)
         df_combined['Cajas Vendidas'] = df_combined[selected_target]
         
+        # Calcular la dispersión según el tipo seleccionado
+        dispersion_val_outer = 0.0
+        dispersion_val_inner = 0.0
+        dispersion_label_outer = ""
+        dispersion_label_inner = ""
+        
+        if dispersion_type == "Basada en MAPE (Error Histórico Medio)":
+            mape_pct = float(MAPES[selected_target].replace('%', '')) / 100.0
+            dispersion_val_outer = pred_val * mape_pct
+            dispersion_val_inner = pred_val * (mape_pct * 0.5)
+            dispersion_label_outer = f"MAPE ({MAPES[selected_target]})"
+            dispersion_label_inner = f"50% MAPE (±{mape_pct * 50:.2f}%)"
+        elif dispersion_type == "Basada en Confianza Estadística (σ Residuos)":
+            t_std_ia_w = t_std_ia_d * math.sqrt(7.0)
+            dispersion_val_outer = opt_z * t_std_ia_w
+            dispersion_val_inner = 0.67449 * t_std_ia_w
+            dispersion_label_outer = f"Confianza {opt_z_label.split(' ')[0]} (Z={opt_z:.2f}, ±{dispersion_val_outer:.0f} cajas)"
+            dispersion_label_inner = f"Confianza Central 50% (Z=0.67, ±{dispersion_val_inner:.0f} cajas)"
+
         # Graficar con altair usando colores azulados corporativos
         import altair as alt
         
-        chart = alt.Chart(df_combined).mark_line(point=True).encode(
+        # Gráfico de líneas (historial y pronóstico)
+        line_chart = alt.Chart(df_combined).mark_line(point=True).encode(
             x=alt.X('date:T', title='Eje Temporal (Semanas)'),
             y=alt.Y('Cajas Vendidas:Q', title='Cantidad (Cajas)'),
-            color=alt.Color('Tipo:N', scale=alt.Scale(domain=['Venta Histórica', 'Pronóstico Futuro'], range=['#475569', '#2563eb']), title="Leyenda"),
+            color=alt.Color('Tipo:N', scale=alt.Scale(
+                domain=['Venta Histórica', 'Pronóstico Futuro', 'Intervalo Central (50%)', 'Intervalo Externo'], 
+                range=['#475569', '#1e3a8a', '#60a5fa', '#93c5fd']
+            ), title="Leyenda"),
             tooltip=['date:T', 'Cajas Vendidas:Q', 'Tipo:N']
-        ).properties(
+        )
+        
+        if dispersion_type != "Ninguna" and dispersion_val_outer > 0:
+            # Banda de dispersión externa (ligera)
+            df_band_outer = pd.DataFrame({
+                'date': [df_plot.iloc[-1]['date'], next_date],
+                'lower': [df_plot.iloc[-1][selected_target], max(0.0, pred_val - dispersion_val_outer)],
+                'upper': [df_plot.iloc[-1][selected_target], pred_val + dispersion_val_outer],
+                'Tipo': ['Intervalo Externo', 'Intervalo Externo']
+            })
+            
+            band_outer_chart = alt.Chart(df_band_outer).mark_area(
+                opacity=0.15,
+                color='#1e3a8a'
+            ).encode(
+                x='date:T',
+                y=alt.Y('lower:Q'),
+                y2='upper:Q',
+                tooltip=[
+                    alt.Tooltip('date:T', title='Fecha'),
+                    alt.Tooltip('lower:Q', title='Límite Inferior Externo (Cajas)', format='.1f'),
+                    alt.Tooltip('upper:Q', title='Límite Superior Externo (Cajas)', format='.1f')
+                ]
+            )
+            
+            # Banda de dispersión interna (más oscura)
+            df_band_inner = pd.DataFrame({
+                'date': [df_plot.iloc[-1]['date'], next_date],
+                'lower': [df_plot.iloc[-1][selected_target], max(0.0, pred_val - dispersion_val_inner)],
+                'upper': [df_plot.iloc[-1][selected_target], pred_val + dispersion_val_inner],
+                'Tipo': ['Intervalo Central (50%)', 'Intervalo Central (50%)']
+            })
+            
+            band_inner_chart = alt.Chart(df_band_inner).mark_area(
+                opacity=0.35,
+                color='#1e3a8a'
+            ).encode(
+                x='date:T',
+                y=alt.Y('lower:Q'),
+                y2='upper:Q',
+                tooltip=[
+                    alt.Tooltip('date:T', title='Fecha'),
+                    alt.Tooltip('lower:Q', title='Límite Inferior Central (Cajas)', format='.1f'),
+                    alt.Tooltip('upper:Q', title='Límite Superior Central (Cajas)', format='.1f')
+                ]
+            )
+            
+            # Combinar gráficos
+            chart = alt.layer(band_outer_chart, band_inner_chart, line_chart)
+        else:
+            chart = line_chart
+            
+        chart = chart.properties(
             width=1000,
             height=380
         ).configure_view(
@@ -706,6 +861,17 @@ if data_loaded:
         ).interactive()
         
         st.altair_chart(chart, use_container_width=True)
+        
+        if dispersion_type != "Ninguna" and dispersion_val_outer > 0:
+            st.markdown(f"""
+            <div style="background-color: #f8fafc; border-left: 4px solid #1e3a8a; padding: 0.85rem 1.25rem; margin-top: -0.5rem; margin-bottom: 1.5rem; font-size: 0.9rem; color: #334155;">
+                <div style="font-weight: 700; margin-bottom: 0.25rem; color: #1e3a8a;">Abanico de Dispersión Estimado ({dispersion_type.split(" ")[2]}):</div>
+                <ul style="margin: 0; padding-left: 1.2rem; line-height: 1.45;">
+                    <li><strong>Intervalo Central (50% Probabilidad):</strong> Entre <strong>{max(0.0, pred_val - dispersion_val_inner):.0f}</strong> y <strong>{pred_val + dispersion_val_inner:.0f}</strong> cajas ({dispersion_label_inner}).</li>
+                    <li><strong>Intervalo Externo ({opt_z_label.split(" ")[0]}):</strong> Entre <strong>{max(0.0, pred_val - dispersion_val_outer):.0f}</strong> y <strong>{pred_val + dispersion_val_outer:.0f}</strong> cajas ({dispersion_label_outer}).</li>
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
     
         # 3. Planificador Global Logístico de Compras
         st.markdown("---")
@@ -737,9 +903,9 @@ if data_loaded:
                 "Código ATC": t.upper(),
                 "Descripción": DESCRIPTIONS[t].split(" (")[0],
                 "Riesgo Rotura": risk_status,
-                "Pronóstico (Cajas)": f"{p_val:.1f}",
-                "Stock Seguridad (Cajas)": f"{t_ss_val:.1f}",
-                "Pedido Sugerido (Cajas)": f"{s_order:.1f}",
+                "Pronóstico (Cajas)": f"{p_val:.0f}",
+                "Stock Seguridad (Cajas)": f"{t_ss_val:.0f}",
+                "Pedido Sugerido (Cajas)": f"{s_order:.0f}",
                 "Coste/Caja": f"{u_cost:.2f} €",
                 "Coste Total": f"{t_cost:,.2f} €"
             })
@@ -778,7 +944,160 @@ if data_loaded:
             file_name=f"plan_compras_semana_{next_date.strftime('%Y_%W')}.csv",
             mime="text/csv"
         )
+    with tab_scen:
+        st.subheader("Simulador Logístico 'What-If': Resiliencia de la Cadena de Suministro")
+        st.markdown("""
+        Evalúa el impacto de disrupciones en la cadena de suministro (retrasos de proveedores, cambios de plazos) 
+        sobre el **Stock de Seguridad**, los **pedidos sugeridos** y los **costes financieros asociados**.
+        """)
         
+        st.markdown("---")
+        
+        # Crear dos columnas principales para configurar y comparar
+        col_scen_in, col_scen_res = st.columns([4, 6])
+        
+        with col_scen_in:
+            st.markdown("### 🛠️ Configurar Escenario Alternativo")
+            st.markdown("Ajusta los parámetros para simular disrupciones (ej. retrasos del proveedor).")
+            
+            scen_l_dias = st.slider(
+                "Simular Nuevo Plazo de Entrega (Lead Time) [Días]",
+                min_value=0.5,
+                max_value=90.0,
+                value=float(opt_l_dias),
+                step=1.0,
+                key="scen_l_dias",
+                help="Tiempo total estimado que tardará el envío en llegar a tu almacén (mínimo 0.5 días, máximo 90 días)."
+            )
+            st.caption("⏱️ **Lead Time:** Días transcurridos desde que haces el pedido hasta que se recibe físicamente.")
+            
+            scen_sigma_l = st.slider(
+                "Simular Variabilidad / Retraso del Proveedor [Días]",
+                min_value=0.0,
+                max_value=30.0,
+                value=float(opt_sigma_l),
+                step=0.5,
+                key="scen_sigma_l",
+                help="Margen de retraso o días habituales de variación que experimenta el transporte."
+            )
+            st.caption("⚠️ **Retrasos:** Días de desviación habitual que el transportista puede sufrir.")
+            
+            scen_servicio_opciones = {
+                "90% (Z = 1.28)": 1.282,
+                "95% (Z = 1.645)": 1.645,
+                "98% (Z = 2.05)": 2.054,
+                "99% (Z = 2.33)": 2.326,
+                "99.9% (Z = 3.09)": 3.090
+            }
+            # Buscar el index por defecto que coincide con opt_z_label
+            default_idx = list(scen_servicio_opciones.keys()).index(opt_z_label) if opt_z_label in scen_servicio_opciones else 1
+            
+            scen_z_label = st.selectbox(
+                "Nivel de Servicio Alternativo",
+                options=list(scen_servicio_opciones.keys()),
+                index=default_idx,
+                key="scen_z_label"
+            )
+            scen_z = scen_servicio_opciones[scen_z_label]
+            
+            scen_h_almacen = st.number_input(
+                "Coste Almacén Anual/Ud Alternativo (H) [€]",
+                min_value=0.1,
+                max_value=500.0,
+                value=float(opt_h_almacen),
+                step=1.0,
+                key="scen_h_almacen"
+            )
+            
+        # Cálculos de comparación
+        t_info = catalog_uncertainty[selected_target]
+        t_std_ia_d = t_info['std_ia_d']
+        t_d_diaria = pred_val / 7.0
+        unit_cost = costs[selected_target]
+        
+        # Base
+        ss_base = ss_val
+        order_base = rec_order
+        cost_base = order_base * unit_cost
+        holding_base = ss_base * opt_h_almacen
+        
+        # Alternativo
+        var_base_alt = (t_d_diaria ** 2) * (scen_sigma_l ** 2)
+        ss_alt = scen_z * math.sqrt(scen_l_dias * (t_std_ia_d ** 2) + var_base_alt)
+        order_alt = pred_val + ss_alt
+        cost_alt = order_alt * unit_cost
+        holding_alt = ss_alt * scen_h_almacen
+        
+        # Diferencias
+        diff_ss = ss_alt - ss_base
+        diff_ss_pct = (diff_ss / ss_base) * 100 if ss_base > 0 else 0.0
+        diff_holding = holding_alt - holding_base
+        
+        with col_scen_res:
+            st.markdown("### 📊 Comparador de Impacto Logístico")
+            
+            # Tarjetas de comparación lado a lado
+            col_m1, col_m2 = st.columns(2)
+            with col_m1:
+                st.markdown(f"""
+                <div class="metric-card">
+                    <div class="metric-title">Stock de Seguridad</div>
+                    <div class="metric-value" style="font-size: 1.5rem;">{ss_base:.0f} ➔ {ss_alt:.0f} <span style="font-size: 0.9rem; font-weight: normal; color: #64748b;">cajas</span></div>
+                    <div class="metric-sub" style="color: {'#ef4444' if diff_ss > 0 else '#10b981'}; font-weight: 600;">
+                        Diferencia: {diff_ss:+.0f} cajas ({diff_ss_pct:+.1f}%)
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+                
+            with col_m2:
+                st.markdown(f"""
+                <div class="metric-card">
+                    <div class="metric-title">Coste Almacenamiento Anual (SS)</div>
+                    <div class="metric-value" style="font-size: 1.4rem;">{holding_base:,.2f} € ➔ {holding_alt:,.2f} €</div>
+                    <div class="metric-sub" style="color: {'#ef4444' if diff_holding > 0 else '#10b981'}; font-weight: 600;">
+                        Diferencia: {diff_holding:+,.2f} €
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+                
+            st.markdown("<br>", unsafe_allow_html=True)
+            
+            # Mostrar gráfico comparativo de barras
+            import altair as alt
+            df_compare = pd.DataFrame({
+                'Escenario': ['Base', 'Alternativo', 'Base', 'Alternativo'],
+                'Métrica': ['Stock de Seguridad', 'Stock de Seguridad', 'Pedido Sugerido', 'Pedido Sugerido'],
+                'Cajas': [ss_base, ss_alt, order_base, order_alt]
+            })
+            
+            compare_chart = alt.Chart(df_compare).mark_bar(cornerRadiusTopLeft=3, cornerRadiusTopRight=3).encode(
+                x=alt.X('Escenario:N', title=None),
+                y=alt.Y('Cajas:Q', title='Cantidad (Cajas)'),
+                color=alt.Color('Escenario:N', scale=alt.Scale(domain=['Base', 'Alternativo'], range=['#64748b', '#1e3a8a']), legend=None),
+                column=alt.Column('Métrica:N', title=None)
+            ).properties(
+                width=180,
+                height=220
+            ).configure_view(
+                strokeWidth=0
+            )
+            
+            st.altair_chart(compare_chart, use_container_width=True)
+            
+            # Alertas comerciales
+            if diff_ss > 0:
+                st.warning(f"""
+                ⚠️ **Alerta de Cadena de Suministro:** La disrupción simulada incrementa la necesidad de Stock de Seguridad en un **{diff_ss_pct:.1f}%**. 
+                Esto inmovilizará **{diff_holding:,.2f} €** adicionales al año en almacenamiento para mantener el nivel de servicio deseado.
+                """)
+            elif diff_ss < 0:
+                st.success(f"""
+                ✅ **Oportunidad de Optimización:** La mejora simulada reduce el Stock de Seguridad en un **{abs(diff_ss_pct):.1f}%**, 
+                liberando **{abs(diff_holding):,.2f} €** al año en costes de almacenamiento.
+                """)
+            else:
+                st.info("ℹ️ Ambos escenarios son idénticos. Modifica los parámetros de la izquierda para ver el impacto.")
+
 
 
     with tab_roi:
@@ -948,7 +1267,7 @@ if data_loaded:
                 st.markdown(f"""
                 <div class="metric-card">
                     <div class="metric-title">Capital Liberado</div>
-                    <div class="metric-value" style="font-size: 1.55rem; color: #2563eb;">{roi_cap_liberado:,.2f} €</div>
+                    <div class="metric-value" style="font-size: 1.55rem; color: #1e3a8a;">{roi_cap_liberado:,.2f} €</div>
                     <div class="metric-sub">Efectivo recuperado</div>
                 </div>
                 """, unsafe_allow_html=True)
